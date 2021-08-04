@@ -1,0 +1,5 @@
+.idea/
+dev-tools/
+.DS_Store
+.terraform
+.terraform.lock.hcl

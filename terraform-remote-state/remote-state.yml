@@ -1,0 +1,54 @@
+Parameters:
+  ProjectName:
+    Type: String
+    Description: Name of the project
+    Default: "my-awesome-project"
+
+Resources:
+  Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: "Private"
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: "aws:kms"
+      BucketName: !Sub "${ProjectName}-terraform-state"
+      Tags:
+        - Key: Project
+          Value: !Ref ProjectName
+      VersioningConfiguration:
+        Status: "Enabled"
+      PublicAccessBlockConfiguration:
+        BlockPublicPolicy: true
+        BlockPublicAcls: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+  Table:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+      AttributeDefinitions:
+        - AttributeName: "LockID"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "LockID"
+          KeyType: "HASH"
+      TableName: !Sub "${ProjectName}-terraform-lock"
+      Tags:
+        - Key: Project
+          Value: !Ref ProjectName
+
+Outputs:
+  BucketARN:
+    Description: Bucket ARN
+    Value: !GetAtt Bucket.Arn
+    Export:
+      Name: !Sub '${AWS::StackName}-Arn'
+  BucketS3Uri:
+    Description: S3 Uri
+    Value: !Sub "s3://${Bucket}"
+    Export:
+      Name: !Sub '${AWS::StackName}-S3Uri'
