@@ -1,5 +1,5 @@
 module "s3" {
-  source = "../modules/s3-bucket"
+  source = "../../modules/s3-bucket"
 
   bucket-name = "${local.project-name}-${local.module-name}-data"
   force-destroy = true
@@ -17,7 +17,7 @@ resource "aws_glue_catalog_database" "this" {
 }
 
 module "crawler" {
-  source = "../modules/glue-crawler"
+  source = "../../modules/glue-crawler"
 
   project-name = local.project-name
   module-name = local.module-name

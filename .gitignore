@@ -3,3 +3,12 @@ dev-tools/
 .DS_Store
 .terraform
 .terraform.lock.hcl
+.devcontainer
+test-utils
+./go
+*/errored.tfstate
+examples/single-account-data-pipeline/data-transformation-code/tests/data_transformation/__pycache__/
+examples/single-account-data-pipeline/data-transformation-code/build
+examples/single-account-data-pipeline/data-transformation-code/dist
+examples/single-account-data-pipeline/data-transformation-code/.pytest_cache
+examples/single-account-data-pipeline/data-transformation-code/src/data_transformation/tmp

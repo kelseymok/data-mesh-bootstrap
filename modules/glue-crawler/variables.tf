@@ -1,6 +1,4 @@
-variable "data-catalog-database-name" {
-  type = string
-}
+
 
 variable "project-name" {
   type = string
@@ -12,6 +10,12 @@ variable "module-name" {
 
 variable "submodule-name" {
   type = string
+  default = ""
+}
+
+variable "excluded-files" {
+  type = list(string)
+  default = []
 }
 
 variable "bucket-path" {
@@ -23,5 +27,9 @@ variable "bucket-kms-arn" {
 }
 
 variable "bucket-arn" {
+  type = string
+}
+
+variable "data-catalog-database-name" {
   type = string
 }
